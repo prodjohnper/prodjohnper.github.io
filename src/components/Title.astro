@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+}
+---
+
+<html>
+  <head>
+    <title>
+      {Astro.props.title ? `prodjohnper | ${Astro.props.title}` : "prodjohnper"}
+    </title>
+  </head>
+</html>

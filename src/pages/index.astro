@@ -1,9 +1,46 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Title from "../components/Title.astro";
+
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
 ---
+
+<!-- Set title -->
+<Title title="Home" />
 
 <Layout>
   <main class="p-5">
-    <h1>Hello! I'm still under development</h1>
+    <h1>Hello! I'm still under development...</h1>
+    <p>Check out my projects</p>
+
+    <section aria-label="A list of my projects">
+      <div class="px-4 mx-auto max-w-screen-xl">
+        <div class="grid gap-6 md:grid-cols-2">
+          <ul>
+            {
+              projects.map((project) => {
+                const { slug, data } = project;
+                const { title, author, img, projectUrl, liveUrl, description } =
+                  data;
+
+                return (
+                  <article class="px-6 bg-white/60 shadow hover:shadow-md rounded-lg hover:scale-[1.02] ease-in-out duration-300 transition-all">
+                    <img
+                      src={`/${img}`}
+                      alt={title}
+                      class="w-full rounded-lg"
+                    />
+                    <h3 class="text-2xl font-semibold italic">{title}</h3>
+                    <p class="text-gray-500 pb-5">{description}</p>
+                  </article>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
